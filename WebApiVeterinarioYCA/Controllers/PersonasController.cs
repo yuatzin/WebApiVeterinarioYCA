@@ -41,10 +41,10 @@ namespace WebApiVeterinarioYCA.Controllers
     return Lista;
         }
          }
-        [HttpGet]
-        public List<cPersonas> listaPersonas()
+        [HttpGet ("obtenerID/{id}")]
+        public cPersonas personaID (int id)
         {
-            List<cPersonas> Lista = new List<cPersonas>();
+            cPersonas idp = new cPersonas();
 
 
 
@@ -52,8 +52,8 @@ namespace WebApiVeterinarioYCA.Controllers
             {
                 using (VeterinariaContext db = new VeterinariaContext())
                 {
-                    Lista = (from persona in db.Personas
-                             where persona.Bhabilitado == 1
+                    idp = (from persona in db.Personas
+                             where persona.Iidpersona == id
                              select new cPersonas
                              {
                                  IdPersona = persona.Iidpersona,
@@ -64,13 +64,13 @@ namespace WebApiVeterinarioYCA.Controllers
 
                              }
 
-                                ).ToList();
+                                ).First();
                 }
-                return Lista;
+                return idp;
             }
             catch (Exception ex)
             {
-                return Lista;
+                return idp;
             }
         }
     }
